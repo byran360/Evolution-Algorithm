@@ -1,33 +1,34 @@
-
+// This project uses evolutionary algorithms to solve the question of maximum-solving.
+// If it solves the question of minimum-solving, only need I change the fitness function.
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "evolution.h"
 	
-#define DNA_size 23			//23¸ö»ùÒò 
-#define pop_size 1000		//1000¸öÊı 
+#define DNA_size 23			//23ä¸ªåŸºå›  
+#define pop_size 1000		//1000ä¸ªæ•° 
 
-double mutation_rate = 0.003;			//±äÒìÂÊ 
-int generation = 5000;					//½øĞĞ¼¸´ú 
-double pop_decimal[pop_size];			//Ê®½øÖÆ»ùÒòÖÖÈº 
-int pop_binary[pop_size][DNA_size];		//×ª»¯Îª¶ş½øÖÆ»ùÒòÖÖÈº 
-double fitness_val[pop_size];			//ÊÊÓ¦¶ÈÖµ 
-double pop_val[pop_size+1];				//¸öÌåµÄ¸ÅÂÊÖµ 
+double mutation_rate = 0.003;			//å˜å¼‚ç‡ 
+int generation = 5000;					//è¿›è¡Œå‡ ä»£ 
+double pop_decimal[pop_size];			//åè¿›åˆ¶åŸºå› ç§ç¾¤ 
+int pop_binary[pop_size][DNA_size];		//è½¬åŒ–ä¸ºäºŒè¿›åˆ¶åŸºå› ç§ç¾¤ 
+double fitness_val[pop_size];			//é€‚åº”åº¦å€¼ 
+double pop_val[pop_size+1];				//ä¸ªä½“çš„æ¦‚ç‡å€¼ 
 
 
 void main(int argc, char *argv[]) {
 	srand((unsigned)time(NULL));
 	int i;
-	first_generation(pop_decimal);					//²úÉúÊ®½øÖÆµÄÖÖÈº 
-	translate_to_binary(pop_decimal,pop_binary);	//¸´ÖÆ²¢×ª»¯Ò»¸ö¶ş½øÖÆÖÖÈº
-	get_fitness(pop_decimal,pop_val,fitness_val);	//µÃµ½ÊÊÓ¦Öµ
+	first_generation(pop_decimal);					//äº§ç”Ÿåè¿›åˆ¶çš„ç§ç¾¤ 
+	translate_to_binary(pop_decimal,pop_binary);	//å¤åˆ¶å¹¶è½¬åŒ–ä¸€ä¸ªäºŒè¿›åˆ¶ç§ç¾¤
+	get_fitness(pop_decimal,pop_val,fitness_val);	//å¾—åˆ°é€‚åº”å€¼
 	for(i = 0; i < generation; i++){
 		printf("\nIt is %d times circle:\n",i+1);
 		crossover(pop_binary); 
 		mutate(pop_binary);
 		translate_to_decimal(pop_decimal,pop_binary);
-		get_fitness(pop_decimal,pop_val,fitness_val);	//µÃµ½ÊÊÓ¦Öµ
-		translate_to_binary(pop_decimal,pop_binary);	//¸´ÖÆ²¢×ª»¯Ò»¸ö¶ş½øÖÆÖÖÈº
+		get_fitness(pop_decimal,pop_val,fitness_val);	//å¾—åˆ°é€‚åº”å€¼
+		translate_to_binary(pop_decimal,pop_binary);	//å¤åˆ¶å¹¶è½¬åŒ–ä¸€ä¸ªäºŒè¿›åˆ¶ç§ç¾¤
 	}
 	
 	print_maxval();
